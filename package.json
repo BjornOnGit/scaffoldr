@@ -1,0 +1,21 @@
+{
+  "name": "scaffoldr-monorepo",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.16.1",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "lint": "biome lint .",
+    "format": "biome format --write .",
+    "test": "vitest run",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.4",
+    "turbo": "^2.11.10",
+    "vitest": "^5.1.0"
+  }
+}
