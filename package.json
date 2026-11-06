@@ -11,10 +11,12 @@
     "format": "biome format --write .",
     "test": "vitest run",
     "build": "turbo run build",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "changeset": "changeset"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.6.4",
+    "@changesets/cli": "^3.0.3",
     "turbo": "^2.11.10",
     "vitest": "^5.1.0"
   }
