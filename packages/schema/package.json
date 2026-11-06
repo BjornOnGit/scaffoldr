@@ -11,10 +11,11 @@
   "files": [
     "dist"
   ],
-  "scripts": {
+    "scripts": {
     "build": "tsdown",
     "test": "vitest run --passWithNoTests",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "gen:schema": "tsdown && node scripts/gen-json-schema.ts"
   },
   "dependencies": {
     "zod": "^4.6.7"
