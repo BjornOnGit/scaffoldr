@@ -74,7 +74,14 @@ describe('registryIndexSchema', () => {
   test('rejects an entry sha256 that is not a SHA-256 digest', () => {
     const result = registryIndexSchema.safeParse({
       ...sampleIndex,
-      modules: [{ id: 'db-prisma', name: 'Prisma', path: 'modules/db-prisma', sha256: 'abc' }],
+      modules: [
+        {
+          id: 'db-prisma',
+          name: 'Prisma',
+          path: 'modules/db-prisma',
+          sha256: 'abc',
+        },
+      ],
     });
     expect(result.success).toBe(false);
   });

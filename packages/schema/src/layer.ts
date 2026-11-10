@@ -1,5 +1,9 @@
 import { z } from 'zod';
-import { idSchema, relativePathSchema, semverRangeSchema } from './primitives.js';
+import {
+  idSchema,
+  relativePathSchema,
+  semverRangeSchema,
+} from './primitives.js';
 
 const dependencyMapSchema = z.record(z.string(), z.string());
 

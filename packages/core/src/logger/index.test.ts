@@ -32,7 +32,10 @@ describe('human mode', () => {
     logger.error('Could not write file');
 
     expect(out).toEqual([]);
-    expect(err).toEqual(['warn: Folder already exists\n', 'error: Could not write file\n']);
+    expect(err).toEqual([
+      'warn: Folder already exists\n',
+      'error: Could not write file\n',
+    ]);
   });
 
   test('ignores structured fields', () => {
@@ -67,7 +70,11 @@ describe('json mode', () => {
 
   test('includes structured fields but never lets them override level or message', () => {
     const { logger, out } = capture({ mode: 'json' });
-    logger.info('Installed', { moduleId: 'db-prisma', level: 'fake', message: 'fake' });
+    logger.info('Installed', {
+      moduleId: 'db-prisma',
+      level: 'fake',
+      message: 'fake',
+    });
 
     expect(JSON.parse(out[0] ?? '')).toEqual({
       moduleId: 'db-prisma',
@@ -78,13 +85,16 @@ describe('json mode', () => {
 });
 
 describe('debug', () => {
-  test.each(['human', 'json'] as const)('is silent in %s mode unless verbose', (mode) => {
-    const { logger, out, err } = capture({ mode });
-    logger.debug('hidden');
+  test.each(['human', 'json'] as const)(
+    'is silent in %s mode unless verbose',
+    (mode) => {
+      const { logger, out, err } = capture({ mode });
+      logger.debug('hidden');
 
-    expect(out).toEqual([]);
-    expect(err).toEqual([]);
-  });
+      expect(out).toEqual([]);
+      expect(err).toEqual([]);
+    },
+  );
 
   test('prints to stderr in human mode when verbose', () => {
     const { logger, out, err } = capture({ mode: 'human', verbose: true });
@@ -98,14 +108,21 @@ describe('debug', () => {
     const { logger, out } = capture({ mode: 'json', verbose: true });
     logger.debug('details');
 
-    expect(JSON.parse(out[0] ?? '')).toEqual({ level: 'debug', message: 'details' });
+    expect(JSON.parse(out[0] ?? '')).toEqual({
+      level: 'debug',
+      message: 'details',
+    });
   });
 });
 
 describe('default output', () => {
   test('writes to process.stdout and process.stderr', () => {
-    const stdout = vi.spyOn(process.stdout, 'write').mockImplementation(() => true);
-    const stderr = vi.spyOn(process.stderr, 'write').mockImplementation(() => true);
+    const stdout = vi
+      .spyOn(process.stdout, 'write')
+      .mockImplementation(() => true);
+    const stderr = vi
+      .spyOn(process.stderr, 'write')
+      .mockImplementation(() => true);
     const logger = createLogger({ mode: 'human' });
 
     logger.info('to stdout');

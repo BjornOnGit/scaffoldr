@@ -27,10 +27,7 @@
           "minLength": 1
         }
       },
-      "required": [
-        "node",
-        "scaffoldr"
-      ],
+      "required": ["node", "scaffoldr"],
       "additionalProperties": false
     },
     "injectionPoints": {
@@ -90,17 +87,10 @@
           "minLength": 1
         }
       },
-      "required": [
-        "appDir"
-      ],
+      "required": ["appDir"],
       "additionalProperties": false
     }
   },
-  "required": [
-    "id",
-    "name",
-    "engines",
-    "injectionPoints"
-  ],
+  "required": ["id", "name", "engines", "injectionPoints"],
   "additionalProperties": false
 }

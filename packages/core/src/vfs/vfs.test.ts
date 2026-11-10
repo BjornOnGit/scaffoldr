@@ -6,7 +6,10 @@ describe('VFS', () => {
     const vfs = new VFS();
     vfs.set('src/index.ts', 'export {};\n', 'next-app');
 
-    expect(vfs.get('src/index.ts')).toEqual({ content: 'export {};\n', owner: 'next-app' });
+    expect(vfs.get('src/index.ts')).toEqual({
+      content: 'export {};\n',
+      owner: 'next-app',
+    });
   });
 
   test('set and get round trip binary content', () => {
@@ -89,7 +92,7 @@ describe('VFS', () => {
     expect(vfs.get('a.txt')).toEqual({ content: 'second', owner: 'two' });
   });
 
-    test('delete removes a file', () => {
+  test('delete removes a file', () => {
     const vfs = new VFS();
     vfs.set('a.txt', 'a', 'one');
     vfs.set('b.txt', 'b', 'one');
@@ -122,7 +125,10 @@ describe('VFS', () => {
     vfs.rename('old/logo.bin', 'new/logo.bin');
 
     expect(vfs.has('old/logo.bin')).toBe(false);
-    expect(vfs.get('new/logo.bin')).toEqual({ content: bytes, owner: 'ui-shadcn' });
+    expect(vfs.get('new/logo.bin')).toEqual({
+      content: bytes,
+      owner: 'ui-shadcn',
+    });
   });
 
   test('rename normalises both paths', () => {
@@ -157,5 +163,79 @@ describe('VFS', () => {
     vfs.rename('a.txt', './a.txt');
 
     expect(vfs.get('a.txt')).toEqual({ content: 'a', owner: 'one' });
+  });
+});
+
+describe('ownership queries', () => {
+  function twoOwners(): VFS {
+    const vfs = new VFS();
+    vfs.set('package.json', '{}', 'next-app');
+    vfs.set('src/app.ts', 'app', 'next-app');
+    vfs.set('src/lib/paystack.ts', 'pay', 'payments-paystack');
+    vfs.set('src/env.ts', 'env', 'payments-paystack');
+    vfs.set('src/z.ts', 'z', 'next-app');
+    return vfs;
+  }
+
+  test('ownerOf returns the owner of each file', () => {
+    const vfs = twoOwners();
+
+    expect(vfs.ownerOf('package.json')).toBe('next-app');
+    expect(vfs.ownerOf('src/lib/paystack.ts')).toBe('payments-paystack');
+  });
+
+  test('ownerOf normalises the path and returns undefined for a missing file', () => {
+    const vfs = twoOwners();
+
+    expect(vfs.ownerOf('.\\src\\env.ts')).toBe('payments-paystack');
+    expect(vfs.ownerOf('missing.ts')).toBeUndefined();
+  });
+
+  test("filesOwnedBy lists each owner's files, sorted, with no overlap", () => {
+    const vfs = twoOwners();
+
+    expect(vfs.filesOwnedBy('next-app')).toEqual([
+      'package.json',
+      'src/app.ts',
+      'src/z.ts',
+    ]);
+    expect(vfs.filesOwnedBy('payments-paystack')).toEqual([
+      'src/env.ts',
+      'src/lib/paystack.ts',
+    ]);
+  });
+
+  test('filesOwnedBy returns an empty list for an unknown owner', () => {
+    expect(twoOwners().filesOwnedBy('nobody')).toEqual([]);
+  });
+
+  test('overwriting a file moves it from one owner to the other', () => {
+    const vfs = twoOwners();
+    vfs.set('src/app.ts', 'patched', 'payments-paystack');
+
+    expect(vfs.ownerOf('src/app.ts')).toBe('payments-paystack');
+    expect(vfs.filesOwnedBy('next-app')).toEqual(['package.json', 'src/z.ts']);
+    expect(vfs.filesOwnedBy('payments-paystack')).toEqual([
+      'src/app.ts',
+      'src/env.ts',
+      'src/lib/paystack.ts',
+    ]);
+  });
+
+  test('rename keeps ownership and delete removes it', () => {
+    const vfs = twoOwners();
+    vfs.rename('src/env.ts', 'src/config/env.ts');
+    vfs.delete('src/z.ts');
+
+    expect(vfs.ownerOf('src/config/env.ts')).toBe('payments-paystack');
+    expect(vfs.ownerOf('src/env.ts')).toBeUndefined();
+    expect(vfs.filesOwnedBy('next-app')).toEqual([
+      'package.json',
+      'src/app.ts',
+    ]);
+    expect(vfs.filesOwnedBy('payments-paystack')).toEqual([
+      'src/config/env.ts',
+      'src/lib/paystack.ts',
+    ]);
   });
 });

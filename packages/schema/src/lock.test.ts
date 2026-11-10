@@ -54,7 +54,9 @@ describe('lockFileSchema', () => {
   test('rejects a file checksum that is not a SHA-256 digest', () => {
     const result = lockFileSchema.safeParse({
       ...lock,
-      files: { 'src/lib/paystack.ts': { owner: 'payments-paystack', sha256: '…' } },
+      files: {
+        'src/lib/paystack.ts': { owner: 'payments-paystack', sha256: '…' },
+      },
     });
     expect(result.success).toBe(false);
   });
@@ -62,7 +64,9 @@ describe('lockFileSchema', () => {
   test('rejects a file path that escapes the project', () => {
     const result = lockFileSchema.safeParse({
       ...lock,
-      files: { '../outside.ts': { owner: 'payments-paystack', sha256: digestA } },
+      files: {
+        '../outside.ts': { owner: 'payments-paystack', sha256: digestA },
+      },
     });
     expect(result.success).toBe(false);
   });

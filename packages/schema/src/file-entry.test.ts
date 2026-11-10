@@ -1,7 +1,10 @@
 import { describe, expect, test } from 'vitest';
 import { fileEntrySchema, fileStrategySchema } from './file-entry.js';
 
-const minimal = { from: 'files/lib/paystack.ts.hbs', to: 'src/lib/paystack.ts' };
+const minimal = {
+  from: 'files/lib/paystack.ts.hbs',
+  to: 'src/lib/paystack.ts',
+};
 
 describe('fileEntrySchema', () => {
   test('applies the defaults for strategy and target', () => {
@@ -18,11 +21,15 @@ describe('fileEntrySchema', () => {
   });
 
   test('rejects an unknown strategy', () => {
-    expect(fileEntrySchema.safeParse({ ...minimal, strategy: 'replace' }).success).toBe(false);
+    expect(
+      fileEntrySchema.safeParse({ ...minimal, strategy: 'replace' }).success,
+    ).toBe(false);
   });
 
   test('rejects an unknown target', () => {
-    expect(fileEntrySchema.safeParse({ ...minimal, target: 'server' }).success).toBe(false);
+    expect(
+      fileEntrySchema.safeParse({ ...minimal, target: 'server' }).success,
+    ).toBe(false);
   });
 
   test('rejects a missing from', () => {
@@ -30,7 +37,9 @@ describe('fileEntrySchema', () => {
   });
 
   test('rejects a to path that escapes the project', () => {
-    expect(fileEntrySchema.safeParse({ ...minimal, to: '../outside.ts' }).success).toBe(false);
+    expect(
+      fileEntrySchema.safeParse({ ...minimal, to: '../outside.ts' }).success,
+    ).toBe(false);
   });
 });
 

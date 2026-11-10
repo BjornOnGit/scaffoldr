@@ -1,0 +1,13 @@
+{
+  "$schema": "https://scaffoldr.dev/schema/layer.json",
+  "id": "astro-starlight",
+  "name": "Astro Starlight",
+  "engines": { "node": ">=22.23.4", "scaffoldr": "^0.1.0" },
+  "injectionPoints": ["nav", "env-schema"],
+  "packageJson": {
+    "dependencies": {
+      "astro": "^7.4.8",
+      "@astrojs/starlight": "^0.42.10"
+    }
+  }
+}

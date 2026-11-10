@@ -31,10 +31,7 @@
         "type": "string"
       },
       "additionalProperties": {
-        "type": [
-          "string",
-          "boolean"
-        ]
+        "type": ["string", "boolean"]
       }
     },
     "modules": {
@@ -54,17 +51,10 @@
           },
           "source": {
             "type": "string",
-            "enum": [
-              "bundled",
-              "remote"
-            ]
+            "enum": ["bundled", "remote"]
           }
         },
-        "required": [
-          "id",
-          "version",
-          "source"
-        ],
+        "required": ["id", "version", "source"],
         "additionalProperties": false
       }
     },
@@ -88,10 +78,7 @@
             "pattern": "^[a-f0-9]{64}$"
           }
         },
-        "required": [
-          "owner",
-          "sha256"
-        ],
+        "required": ["owner", "sha256"],
         "additionalProperties": false
       }
     },

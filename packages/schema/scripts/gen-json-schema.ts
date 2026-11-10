@@ -22,6 +22,9 @@ mkdirSync(outDir, { recursive: true });
 for (const [fileName, schema] of Object.entries(schemas)) {
   // io: 'input' describes what authors write, so fields with defaults stay optional.
   const jsonSchema = z.toJSONSchema(schema, { io: 'input' });
-  writeFileSync(`${outDir}${fileName}`, `${JSON.stringify(jsonSchema, null, 2)}\n`);
+  writeFileSync(
+    `${outDir}${fileName}`,
+    `${JSON.stringify(jsonSchema, null, 2)}\n`,
+  );
   console.log(`wrote schema/${fileName}`);
 }

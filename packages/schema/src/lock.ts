@@ -10,7 +10,9 @@ const installedModuleSchema = z.strictObject({
 const ownedFileSchema = z.strictObject({
   /** A module id, or `merged` when several modules contributed to the file. */
   owner: idSchema,
-  sha256: z.string().regex(/^[a-f0-9]{64}$/, 'Expected a lowercase hex SHA-256 digest'),
+  sha256: z
+    .string()
+    .regex(/^[a-f0-9]{64}$/, 'Expected a lowercase hex SHA-256 digest'),
 });
 
 /** The shape of a project's `scaffoldr.json`: everything needed to run `add` or `doctor` later. */

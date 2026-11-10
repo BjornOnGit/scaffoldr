@@ -10,17 +10,30 @@ const ticketing = {
   layer: 'next-app',
   defaults: ['ui-shadcn', 'auth-better-auth', 'tickets-qr', 'seo-basics'],
   slots: {
-    db: { required: true, options: ['db-prisma', 'db-drizzle'], default: 'db-prisma' },
+    db: {
+      required: true,
+      options: ['db-prisma', 'db-drizzle'],
+      default: 'db-prisma',
+    },
     payments: {
       required: true,
-      options: ['payments-paystack', 'payments-flutterwave', 'payments-monnify'],
+      options: [
+        'payments-paystack',
+        'payments-flutterwave',
+        'payments-monnify',
+      ],
       default: 'payments-paystack',
     },
     email: { required: false, options: ['email-resend'] },
     sms: { required: false, options: ['sms-termii'] },
   },
   questions: [
-    { id: 'eventName', type: 'text', message: 'Event name?', flag: '--event-name' },
+    {
+      id: 'eventName',
+      type: 'text',
+      message: 'Event name?',
+      flag: '--event-name',
+    },
     {
       id: 'currency',
       type: 'select',
@@ -42,7 +55,11 @@ describe('blueprintManifestSchema', () => {
       ...ticketing,
       slots: {
         ...ticketing.slots,
-        db: { required: true, options: ['db-prisma', 'db-drizzle'], default: 'db-mongo' },
+        db: {
+          required: true,
+          options: ['db-prisma', 'db-drizzle'],
+          default: 'db-mongo',
+        },
       },
     });
     expect(result.success).toBe(false);

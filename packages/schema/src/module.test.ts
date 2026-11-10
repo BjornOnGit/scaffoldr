@@ -21,10 +21,16 @@ const paystack = {
     { key: 'PAYSTACK_WEBHOOK_SECRET', required: true },
   ],
   files: [
-    { from: 'files/lib/paystack.ts.hbs', to: 'src/lib/paystack.ts', strategy: 'overwrite' },
+    {
+      from: 'files/lib/paystack.ts.hbs',
+      to: 'src/lib/paystack.ts',
+      strategy: 'overwrite',
+    },
   ],
   inject: [{ point: 'env-schema', from: 'patches/env.inject.ts' }],
-  notes: ['Add your webhook URL in the Paystack dashboard: /api/paystack/webhook'],
+  notes: [
+    'Add your webhook URL in the Paystack dashboard: /api/paystack/webhook',
+  ],
 };
 
 describe('moduleManifestSchema', () => {
@@ -70,7 +76,9 @@ describe('moduleManifestSchema', () => {
   });
 
   test('rejects a version that is not semver', () => {
-    expect(moduleManifestSchema.safeParse({ ...paystack, version: '1.0' }).success).toBe(false);
+    expect(
+      moduleManifestSchema.safeParse({ ...paystack, version: '1.0' }).success,
+    ).toBe(false);
   });
 
   test('rejects an env entry without required', () => {

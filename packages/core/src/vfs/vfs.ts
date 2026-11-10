@@ -56,4 +56,16 @@ export class VFS {
     this.#entries.delete(fromPath);
     this.#entries.set(toPath, entry);
   }
+
+  /** The id of the layer or module that owns a file, or `undefined` if the path is not there. */
+  ownerOf(path: string): string | undefined {
+    return this.#entries.get(normalizePath(path))?.owner;
+  }
+
+  /** The paths of every file owned by `owner`, sorted like `list()`. */
+  filesOwnedBy(owner: string): string[] {
+    return this.list().filter(
+      (path) => this.#entries.get(path)?.owner === owner,
+    );
+  }
 }

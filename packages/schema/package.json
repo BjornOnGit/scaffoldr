@@ -11,7 +11,7 @@
   "files": [
     "dist"
   ],
-    "scripts": {
+  "scripts": {
     "build": "tsdown",
     "test": "vitest run --passWithNoTests",
     "typecheck": "tsc --noEmit",
@@ -20,7 +20,7 @@
   "dependencies": {
     "zod": "^4.6.7"
   },
-    "devDependencies": {
+  "devDependencies": {
     "@types/node": "^26.6.6",
     "tsdown": "^0.23.5",
     "typescript": "^7.0.2"

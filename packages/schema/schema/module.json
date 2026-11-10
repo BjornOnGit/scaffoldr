@@ -114,10 +114,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "key",
-          "required"
-        ],
+        "required": ["key", "required"],
         "additionalProperties": false
       }
     },
@@ -151,16 +148,10 @@
           "target": {
             "default": "app",
             "type": "string",
-            "enum": [
-              "app",
-              "shared"
-            ]
+            "enum": ["app", "shared"]
           }
         },
-        "required": [
-          "from",
-          "to"
-        ],
+        "required": ["from", "to"],
         "additionalProperties": false
       }
     },
@@ -179,10 +170,7 @@
             "minLength": 1
           }
         },
-        "required": [
-          "point",
-          "from"
-        ],
+        "required": ["point", "from"],
         "additionalProperties": false
       }
     },
@@ -195,11 +183,6 @@
       }
     }
   },
-  "required": [
-    "id",
-    "name",
-    "version",
-    "supports"
-  ],
+  "required": ["id", "name", "version", "supports"],
   "additionalProperties": false
 }

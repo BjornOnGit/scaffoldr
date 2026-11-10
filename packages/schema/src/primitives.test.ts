@@ -28,12 +28,15 @@ describe('idSchema', () => {
 });
 
 describe('semverSchema', () => {
-  test.each(['0.0.0', '1.2.3', '1.0.0-beta.1', '1.0.0+build.5', '10.20.30-rc.1+sha.abc'])(
-    'accepts %s',
-    (value) => {
-      expect(semverSchema.safeParse(value).success).toBe(true);
-    },
-  );
+  test.each([
+    '0.0.0',
+    '1.2.3',
+    '1.0.0-beta.1',
+    '1.0.0+build.5',
+    '10.20.30-rc.1+sha.abc',
+  ])('accepts %s', (value) => {
+    expect(semverSchema.safeParse(value).success).toBe(true);
+  });
 
   test.each(['1.2', 'v1.2.3', '01.2.3', '1.2.3.4', '1.2.3-', '^1.2.3', ''])(
     'rejects %j',
@@ -74,10 +77,16 @@ describe('relativePathSchema', () => {
     },
   );
 
-  test.each(['../x', '/abs', 'a/../b', '..', 'a\\..\\b', '\\\\server\\share', 'C:\\x', ''])(
-    'rejects %j',
-    (value) => {
-      expect(relativePathSchema.safeParse(value).success).toBe(false);
-    },
-  );
+  test.each([
+    '../x',
+    '/abs',
+    'a/../b',
+    '..',
+    'a\\..\\b',
+    '\\\\server\\share',
+    'C:\\x',
+    '',
+  ])('rejects %j', (value) => {
+    expect(relativePathSchema.safeParse(value).success).toBe(false);
+  });
 });

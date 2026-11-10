@@ -4,11 +4,16 @@ import { idSchema } from './primitives.js';
 const nonEmptyString = z.string().min(1);
 
 /** When both are present, `default` has to be one of `options`. */
-function defaultIsInOptions(value: { options?: string[]; default?: unknown }): boolean {
+function defaultIsInOptions(value: {
+  options?: string[];
+  default?: unknown;
+}): boolean {
   if (value.options === undefined || value.default === undefined) {
     return true;
   }
-  return typeof value.default === 'string' && value.options.includes(value.default);
+  return (
+    typeof value.default === 'string' && value.options.includes(value.default)
+  );
 }
 
 const defaultInOptionsIssue = {
@@ -31,7 +36,9 @@ const questionSchema = z
     message: nonEmptyString.optional(),
     options: z.array(nonEmptyString).optional(),
     default: z.union([z.string(), z.boolean()]).optional(),
-    flag: z.string().regex(/^--[a-z][a-z0-9-]*$/, 'Expected a flag such as --event-name'),
+    flag: z
+      .string()
+      .regex(/^--[a-z][a-z0-9-]*$/, 'Expected a flag such as --event-name'),
   })
   .refine(defaultIsInOptions, defaultInOptionsIssue);
 

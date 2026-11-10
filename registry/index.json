@@ -1,0 +1,12 @@
+{
+  "registryVersion": "2026.11.10",
+  "layers": [
+    {
+      "id": "astro-starlight",
+      "name": "Astro Starlight",
+      "path": "layers/astro-starlight"
+    }
+  ],
+  "blueprints": [],
+  "modules": []
+}

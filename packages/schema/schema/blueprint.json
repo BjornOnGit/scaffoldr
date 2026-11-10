@@ -65,10 +65,7 @@
             "pattern": "^[a-z0-9-]+$"
           }
         },
-        "required": [
-          "required",
-          "options"
-        ],
+        "required": ["required", "options"],
         "additionalProperties": false
       }
     },
@@ -83,11 +80,7 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "text",
-              "select",
-              "confirm"
-            ]
+            "enum": ["text", "select", "confirm"]
           },
           "message": {
             "type": "string",
@@ -101,21 +94,14 @@
             }
           },
           "default": {
-            "type": [
-              "string",
-              "boolean"
-            ]
+            "type": ["string", "boolean"]
           },
           "flag": {
             "type": "string",
             "pattern": "^--[a-z][a-z0-9-]*$"
           }
         },
-        "required": [
-          "id",
-          "type",
-          "flag"
-        ],
+        "required": ["id", "type", "flag"],
         "additionalProperties": false
       }
     }

@@ -36,8 +36,10 @@ const humanPrefix: Record<LogLevel, string> = {
  */
 export function createLogger(options: LoggerOptions): Logger {
   const { mode, verbose = false } = options;
-  const writeOut = options.stdout ?? ((text: string) => void process.stdout.write(text));
-  const writeErr = options.stderr ?? ((text: string) => void process.stderr.write(text));
+  const writeOut =
+    options.stdout ?? ((text: string) => void process.stdout.write(text));
+  const writeErr =
+    options.stderr ?? ((text: string) => void process.stderr.write(text));
 
   function log(level: LogLevel, message: string, fields: LogFields = {}): void {
     if (level === 'debug' && !verbose) {

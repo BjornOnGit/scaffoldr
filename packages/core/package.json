@@ -17,9 +17,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@scaffoldr/schema": "workspace:*"
+    "@scaffoldr/errors": "workspace:*",
+    "@scaffoldr/schema": "workspace:*",
+    "handlebars": "^4.7.10"
   },
-    "devDependencies": {
+  "devDependencies": {
     "@types/node": "^26.6.6",
     "tsdown": "^0.23.5",
     "typescript": "^7.0.2"

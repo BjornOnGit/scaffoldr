@@ -9,10 +9,15 @@
   "scripts": {
     "lint": "biome lint .",
     "format": "biome format --write .",
-    "test": "vitest run",
-    "build": "turbo run build",
+    "test": "turbo run build && vitest run",
     "typecheck": "turbo run typecheck",
-    "changeset": "changeset"
+    "changeset": "changeset",
+    "registry:build": "turbo run build --filter=@scaffoldr/registry-client && node scripts/build-registry.ts"
+  },
+  "dependencies": {
+    "@scaffoldr/errors": "workspace:*",
+    "@scaffoldr/registry-client": "workspace:*",
+    "@scaffoldr/schema": "workspace:*"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.6.4",

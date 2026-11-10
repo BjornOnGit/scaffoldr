@@ -3,18 +3,29 @@ import { ScaffoldrError, errorCodes } from './index.js';
 
 describe('ScaffoldrError', () => {
   test('exposes code and hint', () => {
-    const error = new ScaffoldrError('UNKNOWN_MODULE', 'No module called "payments-x".', {
-      hint: 'Run `scaffoldr list` to see the available modules.',
-    });
+    const error = new ScaffoldrError(
+      'UNKNOWN_MODULE',
+      'No module called "payments-x".',
+      {
+        hint: 'Run `scaffoldr list` to see the available modules.',
+      },
+    );
 
     expect(error.code).toBe('UNKNOWN_MODULE');
-    expect(error.hint).toBe('Run `scaffoldr list` to see the available modules.');
+    expect(error.hint).toBe(
+      'Run `scaffoldr list` to see the available modules.',
+    );
     expect(error.message).toBe('No module called "payments-x".');
   });
 
   test('exposes details when given', () => {
-    const details = { moduleId: 'payments-x', available: ['payments-paystack'] };
-    const error = new ScaffoldrError('UNKNOWN_MODULE', 'Unknown module.', { details });
+    const details = {
+      moduleId: 'payments-x',
+      available: ['payments-paystack'],
+    };
+    const error = new ScaffoldrError('UNKNOWN_MODULE', 'Unknown module.', {
+      details,
+    });
 
     expect(error.details).toEqual(details);
   });
@@ -27,7 +38,10 @@ describe('ScaffoldrError', () => {
   });
 
   test('is an instance of ScaffoldrError and Error', () => {
-    const error = new ScaffoldrError('UNSAFE_PATH', 'Path escapes the project.');
+    const error = new ScaffoldrError(
+      'UNSAFE_PATH',
+      'Path escapes the project.',
+    );
 
     expect(error).toBeInstanceOf(ScaffoldrError);
     expect(error).toBeInstanceOf(Error);
@@ -37,13 +51,18 @@ describe('ScaffoldrError', () => {
   test('is still recognisable after being thrown and caught', () => {
     let caught: unknown;
     try {
-      throw new ScaffoldrError('TARGET_NOT_EMPTY', 'Target folder is not empty.');
+      throw new ScaffoldrError(
+        'TARGET_NOT_EMPTY',
+        'Target folder is not empty.',
+      );
     } catch (error) {
       caught = error;
     }
 
     expect(caught instanceof ScaffoldrError).toBe(true);
-    expect(caught instanceof ScaffoldrError && caught.code).toBe('TARGET_NOT_EMPTY');
+    expect(caught instanceof ScaffoldrError && caught.code).toBe(
+      'TARGET_NOT_EMPTY',
+    );
   });
 
   test('has a stack trace', () => {
@@ -54,10 +73,11 @@ describe('ScaffoldrError', () => {
 });
 
 describe('errorCodes', () => {
-  test('lists all twelve codes', () => {
+  test('lists all thirteen codes', () => {
     expect([...errorCodes]).toEqual([
       'INVALID_CONFIG',
       'UNKNOWN_BLUEPRINT',
+      'UNKNOWN_LAYER',
       'UNKNOWN_MODULE',
       'SLOT_REQUIRED',
       'MODULE_CONFLICT',

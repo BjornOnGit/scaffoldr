@@ -6,7 +6,12 @@ import { idSchema, relativePathSchema, semverSchema } from './primitives.js';
 const nonEmptyString = z.string().min(1);
 
 const envVarSchema = z.strictObject({
-  key: z.string().regex(/^[A-Za-z_][A-Za-z0-9_]*$/, 'Expected a valid environment variable name'),
+  key: z
+    .string()
+    .regex(
+      /^[A-Za-z_][A-Za-z0-9_]*$/,
+      'Expected a valid environment variable name',
+    ),
   description: z.string().optional(),
   required: z.boolean(),
 });

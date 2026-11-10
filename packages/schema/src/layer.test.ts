@@ -23,7 +23,10 @@ describe('layerManifestSchema', () => {
   });
 
   test('rejects an invalid id', () => {
-    const result = layerManifestSchema.safeParse({ ...validManifest, id: 'Next_App' });
+    const result = layerManifestSchema.safeParse({
+      ...validManifest,
+      id: 'Next_App',
+    });
     expect(result.success).toBe(false);
   });
 
